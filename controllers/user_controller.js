@@ -33,7 +33,7 @@ export const signin = async (req, res) => {
   res.cookie("token", token, {
     httpOnly: true,
     expires: new Date(Date.now() + oneDay),
-    secure: false, //set true on deployment
+    secure: true,
   });
   res.status(StatusCodes.OK).json("");
 };
@@ -48,7 +48,7 @@ export const signout = async (req, res) => {
   res.cookie("token", "logout", {
     httpOnly: true,
     expires: new Date(Date.now()),
-    secure: false,
+    secure: true,
   });
   res.status(StatusCodes.OK).json("Logged out");
 };
