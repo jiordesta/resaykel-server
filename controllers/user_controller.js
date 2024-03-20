@@ -34,6 +34,7 @@ export const signin = async (req, res) => {
     httpOnly: true,
     expires: new Date(Date.now() + oneDay),
     secure: true,
+    sameSite: "None",
   });
   res.status(StatusCodes.OK).json("");
 };
@@ -49,6 +50,7 @@ export const signout = async (req, res) => {
     httpOnly: true,
     expires: new Date(Date.now()),
     secure: true,
+    sameSite: "None",
   });
   res.status(StatusCodes.OK).json("Logged out");
 };
