@@ -117,3 +117,22 @@ export const delete_product = async (req, res) => {
   await Product.findByIdAndDelete(id);
   res.status(StatusCodes.OK).json("");
 };
+
+export const checkout = async (req, res) => {
+  const { items } = req.params;
+  const productsIds = items.split(",");
+  const { _id } = req.user;
+  const user = await User.findById(_id);
+  if (!user) throw new BadRequestError("An Error occured");
+  for (let i = 0; i < productsIds.length; i++) {
+    const product = await Product.findByIdAndUpdate(productsIds[i], {
+      seller: {
+        _id: user._id,
+        name: user.name,
+        username: user.username,
+      },
+    });
+    if (!product) throw new BadRequestError("An error occured");
+  }
+  res.status(StatusCodes.OK).json("");
+};

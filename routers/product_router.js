@@ -1,5 +1,6 @@
 import { Router } from "express";
 import {
+  checkout,
   create_product,
   delete_product,
   fetch_my_products,
@@ -59,5 +60,7 @@ router
   );
 
 router.route("/delete_product/:id").delete(authenticate, delete_product);
+
+router.route("/checkout/:items").patch(authenticate, checkout);
 
 export default router;
